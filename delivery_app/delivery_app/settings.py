@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
     
     "django.contrib.sites",
     #3rd party apps:
@@ -69,6 +70,11 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",##added this -- check 
+    
+    "corsheaders.middleware.CorsMiddleware",#added this - check
+    
+
+
 ]
 
 ROOT_URLCONF = "delivery_app.urls"
@@ -155,3 +161,6 @@ EMAIL_HOST_USER = config("EMAIL_HOST_USER")#senders email - Backend
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD") #password
 
 AUTHENTICATION_BACKENDS = ['core.models.EmailBackend']
+
+# Allow all origins (for development purposes only)
+CORS_ALLOW_ALL_ORIGINS = True

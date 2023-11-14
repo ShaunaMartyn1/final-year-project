@@ -7,23 +7,44 @@ class FoodService {
         await http.get(Uri.parse("http://127.0.0.1:8000/food/foodlist"));
 
     print(jsonDecode(response.body));
-    return ListOfFood.fromList(
-        jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
+    return ListOfFood.fromJson(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));//original
+    // return ListOfFood.fromList(jsonDecode(response.body));
+
   }
 }
 
-class ListOfFood {
+/*class ListOfFood {
   List<Food> foods;
   ListOfFood({required this.foods});
-  factory ListOfFood.fromJson(List list) {
+  factory ListOfFood.fromList(List list) {
+   
+    List<Food> _foods = [];
+    for (var element in list) {
+      _foods.add(Food.fromJson(element));
+    }
+    return ListOfFood(foods: _foods);
+  } 
+}*/
+
+//new
+class ListOfFood {
+  late List<Food> foods;
+
+  ListOfFood({required List<Food> foods}) {
+    this.foods = foods;
+  }
+
+  factory ListOfFood.fromJson(List<dynamic> list) {
     List<Food> _foods = [];
     for (var element in list) {
       _foods.add(Food.fromJson(element));
     }
     return ListOfFood(foods: _foods);
   }
-  
 }
+///new end
+
+
 
 class Food {
   int id;

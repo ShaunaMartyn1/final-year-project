@@ -3,27 +3,41 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 main() async {
-  //ListOfFood listOfFood = await FoodService().getFood();
-  //print(listOfFood.foods[0].name);
- 
+  ListOfFood listOfFood = await FoodService().getFood();
+  print(listOfFood.foods[0].name);
 }
 
 class FoodService {
- Future<ListOfFood> getFood() async {
-   var response =
-      await http.get(Uri.parse("http://127.0.0.1:8000/food/foodlist"));
-  print(jsonDecode(response.body));
- // return ListOfFood.fromList(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
-   return ListOfFood.fromJson(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
-
- }
- 
+  Future<ListOfFood> getFood() async {
+    var response =
+        await http.get(Uri.parse("http://127.0.0.1:8000/food/foodlist"));
+    print(jsonDecode(response.body));
+    //return ListOfFood.fromList(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));original
+    return ListOfFood.fromJson(jsonDecode(response.body));
+  }
 }
 
-class ListOfFood {
-  List<Food> foods;
+/*class ListOfFood {
+  List<Food> foods;//late
   ListOfFood({required this.foods});
-  factory ListOfFood.fromJson(List list) {
+  factory ListOfFood.fromList(List list) {
+    //was json
+    List<Food> _foods = [];
+    for (var element in list) {
+      _foods.add(Food.fromJson(element));
+    }
+    return ListOfFood(foods: _foods);
+  }
+}*///old
+//new
+class ListOfFood {
+  late List<Food> foods;
+
+  ListOfFood({required List<Food> foods}) {
+    this.foods = foods;
+  }
+
+  factory ListOfFood.fromJson(List<dynamic> list) {
     List<Food> _foods = [];
     for (var element in list) {
       _foods.add(Food.fromJson(element));
@@ -31,6 +45,7 @@ class ListOfFood {
     return ListOfFood(foods: _foods);
   }
 }
+///new end
 
 class Food {
   int id;

@@ -1,4 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
+///import 'dart:core';///
+// ignore: unused_import
+//import 'dart:ffi';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
 class FoodService {
@@ -51,10 +57,12 @@ class Food {
   String name;
   int price;
   int discount;
+  double price_with_discount;
   String restaurant;
   String category;
   String image;
   String preview;
+  Uint8List image_memory;
   Food({
     required this.id,
     required this.name,
@@ -64,6 +72,8 @@ class Food {
     required this.category,
     required this.image,
     required this.preview,
+    required this.image_memory,
+    required this.price_with_discount,
   });
 
   factory Food.fromJson(map) {
@@ -76,6 +86,8 @@ class Food {
       category: map['category'],
       image: map['image'],
       preview: map['preview'],
+      image_memory: base64Decode(map['image_memory']),
+      price_with_discount: map['price_with_discount'],
     );
   }
 }

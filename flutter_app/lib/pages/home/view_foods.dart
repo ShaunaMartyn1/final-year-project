@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'data_service/food_service.dart';
-
+import '../../data_service/food_service.dart';
 
 class ViewFoods extends StatefulWidget {
   const ViewFoods({
-    Key? key, required this.foodService, required this.size,//check this required this.foodService, required this.size
-
-    
+    Key? key,
+    required this.foodService,
+    required this.size, //check this required this.foodService, required this.size
   }) : super(key: key);
 
   final FoodService foodService;
@@ -26,7 +25,7 @@ class _ViewFoodsState extends State<ViewFoods> {
     return FutureBuilder<ListOfFood>(
         future: foodService.getFood(),
         builder: (context, snapshot) {
-          if (snapshot.hasData){
+          if (snapshot.hasData) {
             List<Food> foods = snapshot.data!.foods;
             return Container(
               margin: EdgeInsets.all(20),
@@ -49,9 +48,10 @@ class _ViewFoodsState extends State<ViewFoods> {
                       ...foods.map((food) {
                         //print(food.image);
                         return Container(
-                          margin: EdgeInsets.all(12.0),//10
-                          height: size.height * 0.26,//size of boxes that food items are in 
-                          width: size.width * 0.20,//20
+                          margin: EdgeInsets.all(12.0), //10
+                          height: size.height *
+                              0.26, //size of boxes that food items are in
+                          width: size.width * 0.20, //20
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: Colors.blue,
@@ -59,24 +59,26 @@ class _ViewFoodsState extends State<ViewFoods> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Column(
-
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                               Text(
-                                food.name, 
+                              Text(
+                                food.name,
                                 textAlign: TextAlign.center,
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text("${food.price}",
-                                    style: TextStyle(color: Colors.red,
-                                    decoration: TextDecoration.lineThrough)
-                                  ),
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          decoration:
+                                              TextDecoration.lineThrough)),
                                   Text("${food.price_with_discount}"),
                                 ],
                               ),
-                                Image.memory(food.image_memory, 
+                              Image.memory(
+                                food.image_memory,
                                 height: size.height * 0.11,
                               ),
                               Padding(
@@ -96,7 +98,7 @@ class _ViewFoodsState extends State<ViewFoods> {
                         );
                       }).toList(),
                     ],
-                  ),///
+                  ),
                 ],
               ),
             );
@@ -106,8 +108,7 @@ class _ViewFoodsState extends State<ViewFoods> {
               height: size.height,
               width: double.infinity,
               color: Colors.white,
-              child: CircularProgressIndicator()
-            );
+              child: CircularProgressIndicator());
         });
   }
 } //main

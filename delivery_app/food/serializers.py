@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Food
+from .models import Food, Category, Restaurant
 import base64
 
 
@@ -9,7 +9,7 @@ class FoodSerializer(serializers.ModelSerializer):
     image_memory = serializers.SerializerMethodField("get_image_memory")
     price_with_discount = serializers.SerializerMethodField("get_price_with_discount")
 
-    
+    #Food models retreieve these items 
     class Meta:
         model=Food
         fields=('id', 'name', 'price', 'discount', 'restaurant', 'category', 'image', 'preview', 'image_memory',
@@ -20,6 +20,16 @@ class FoodSerializer(serializers.ModelSerializer):
             return base64.b64encode(loadedfile.read())
         return
     def get_price_with_discount(request, food:Food):
-        return food.price - (food.discount/100) * food.price 
+        return food.price - (food.discount/100) * food.price
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields=('name', )
+
+class RestaurantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields=('name', )
     
     

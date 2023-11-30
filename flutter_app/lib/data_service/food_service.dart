@@ -1,10 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
-///import 'dart:core';///
-// ignore: unused_import
-//import 'dart:ffi';
 import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class FoodService {
@@ -13,12 +11,70 @@ class FoodService {
         await http.get(Uri.parse("http://127.0.0.1:8000/food/foodlist"));
 
     print(jsonDecode(response.body));
-    return ListOfFood.fromJson(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));//original
-    // return ListOfFood.fromList(jsonDecode(response.body));
+    return ListOfFood.fromJson(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
+    
+  }
+
+  Future<CategoryList> getCategory()async{
+    var response =
+        await http.get(Uri.parse("http://127.0.0.1:8000/food/categorylist"));
+        return CategoryList.fromList(
+          jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
+  }
+  
+  Future<RestaurantList> getRestaurant()async{
+    var response =
+        await http.get(Uri.parse("http://127.0.0.1:8000/food/restaurantlist"));//restaurantList thats why it didnt work
+        return RestaurantList.fromList(
+          jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
+  }
+  
+}
+
+class CategoryList{
+  List<Category> categories;
+  CategoryList({required this.categories});
+
+  factory CategoryList.fromList(List list){
+    List<Category> _categories = [];
+    for  (var element in list){
+      _categories.add(Category.fromMap(element));
+    }
+    //return CategoryList(categories: []);This is why it wasnt showing categories
+        return CategoryList(categories: _categories);
 
   }
 }
 
+class Category{
+  String name;
+  Category({required this.name});
+  factory Category.fromMap(map){
+    return Category(name: map['name']);
+  }
+}
+
+class RestaurantList{
+  List<Restaurant> restaurants;
+  RestaurantList({required this.restaurants});
+
+  factory RestaurantList.fromList(List list){
+    List<Restaurant> _restaurants = [];
+    for  (var element in list){
+      _restaurants.add(Restaurant.fromMap(element));
+    }
+    return RestaurantList(restaurants: _restaurants);
+  }
+}
+
+
+class Restaurant{
+  String name;
+  Restaurant({required this.name});
+  factory Restaurant.fromMap(map){
+    return Restaurant(name: map['name']);
+  }
+}
 /*class ListOfFood {
   List<Food> foods;
   ListOfFood({required this.foods});
@@ -30,7 +86,7 @@ class FoodService {
     }
     return ListOfFood(foods: _foods);
   } 
-}*/
+}*///old giving error???
 
 //new
 class ListOfFood {

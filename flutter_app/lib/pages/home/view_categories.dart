@@ -22,55 +22,22 @@ class _ViewCategoryState extends State<ViewCategories> {
             return Container(
                 child: Column(
               children: categories
-                  .map((category) => Text(category.name))
+                  .map((category) => Padding(
+                        padding: const EdgeInsets.all(17.0),
+                        child: Text(
+                          category.name,
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ))
                   .toList(), //check was category with error
             ));
           }
           if (snapshot.hasError) {
             print("Error: ${snapshot.error}"); //getting null
           }
-
-          
           return CircularProgressIndicator();
         });
   }
 }
-
-/*import 'package:flutter/material.dart';
-import 'package:flutter_app/data_service/food_service.dart';
-
-class ViewCategories extends StatefulWidget {
-  const ViewCategories({Key? key}) : super(key: key);
-
-  @override
-  State<ViewCategories> createState() => _ViewCategoriesState();
-}
-
-class _ViewCategoriesState extends State<ViewCategories> {
-  FoodService foodService = FoodService();
-  late List<Category> categories;
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<CategoryList>(
-      future: foodService.getCategory(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          categories = snapshot.data!.categories;
-          return Container(
-            child: Column(
-              children: categories
-                  .map((category) => Text(category.name))
-                  .toList(),
-            ),
-          );
-        }
-        if (snapshot.hasError) {
-          return Text("Error: ${snapshot.error}");
-        }
-        return CircularProgressIndicator();
-      },
-    );
-  }
-}
-*/

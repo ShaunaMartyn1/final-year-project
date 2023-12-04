@@ -3,13 +3,17 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/home/search_result_food.dart';
 import 'package:flutter_app/pages/home/view_categories.dart';
 
 import '../../data_service/food_service.dart';
 import 'view_restaurants.dart';
+import 'search_result_food.dart';
+
+//52.56
 
 
-enum ShowSelectedType{food, categories, restaurants}
+enum ShowSelectedType{food, categories, restaurants, searchResult}
 class Home extends StatefulWidget {
   const Home(); //changed this took out super.key
 
@@ -19,6 +23,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   ShowSelectedType showSelectedType = ShowSelectedType.food;//food or foods??? 14:23
+  String searchingKeyword = "";
   @override
   void initState() {
     super.initState();
@@ -64,6 +69,7 @@ class _HomeState extends State<Home> {
                 child: TextField(
                   onChanged: (value) {
                     //do somehting with user input here
+                    searchingKeyword = value;
                   },
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
@@ -82,7 +88,11 @@ class _HomeState extends State<Home> {
                       borderRadius: BorderRadius.all(Radius.circular(6.0)),
                     ),
                     suffixIcon: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          setState(() {
+                            showSelectedType = ShowSelectedType.searchResult;
+                          });
+                        },
                         child: Material(
                           color: Colors.blue,
                           child: Icon(
@@ -205,6 +215,7 @@ class _HomeState extends State<Home> {
             if (showSelectedType == ShowSelectedType.food) ViewFoods(),
             if (showSelectedType == ShowSelectedType.categories) ViewCategories(),
             if (showSelectedType == ShowSelectedType.restaurants) ViewRestaurants(),
+            if(showSelectedType == ShowSelectedType.searchResult) SearchResultFood(keyword: searchingKeyword, ),
           ],
         ),
       ),

@@ -14,6 +14,15 @@ class FoodService {
     return ListOfFood.fromJson(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
     
   }
+  //Search for items
+  Future<ListOfFood> getFoodBySearch(String keyword) async {
+    var response =
+        await http.get(Uri.parse("http://127.0.0.1:8000/food/$keyword"));//Check this 
+
+    print(jsonDecode(response.body));//need this line???
+    return ListOfFood.fromJson(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
+    
+  }
 
   Future<CategoryList> getCategory()async{
     var response =

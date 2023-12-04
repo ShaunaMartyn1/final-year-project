@@ -22,7 +22,13 @@ class _ViewRestaurantState extends State<ViewRestaurants> {
             return Container(
                 child: Column(
               children: restaurants
-                  .map((restaurant) => Text(restaurant.name))
+                  .map((restaurant) => Padding(
+                        padding: const EdgeInsets.all(17.0),
+                        child: Text(restaurant.name,
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                      ))
                   .toList(), //check was category with error
             ));
           }

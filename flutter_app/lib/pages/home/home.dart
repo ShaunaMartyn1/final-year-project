@@ -22,7 +22,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  ShowSelectedType showSelectedType = ShowSelectedType.food;//food or foods??? 14:23
+  ShowSelectedType showSelectedType = ShowSelectedType.food;//food or foods??? 
   String searchingKeyword = "";
   @override
   void initState() {
@@ -171,12 +171,12 @@ class _HomeState extends State<Home> {
                       ElevatedButton.styleFrom(backgroundColor: Colors.white),
                   onPressed: () {
                     setState((){
-                      showSelectedType = ShowSelectedType.food;//foods?
+                      showSelectedType = ShowSelectedType.food;
                     });
                   },
                   child: Text(
                     "Foods",
-                    style: TextStyle(color: showSelectedType== ShowSelectedType.food //foods???
+                    style: TextStyle(color: showSelectedType== ShowSelectedType.food 
                       ? Colors.black54
                       : Colors.black87),
                   ),
@@ -193,7 +193,8 @@ class _HomeState extends State<Home> {
                     "Categories",
                     style: TextStyle( color: showSelectedType== ShowSelectedType.categories
                       ? Colors.black54
-                      : Colors.black87),),
+                      : Colors.black87),
+                      ),
                   ),
                 ElevatedButton(
                   style:

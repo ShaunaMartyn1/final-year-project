@@ -19,7 +19,7 @@ class FoodService {
     var response =
         await http.get(Uri.parse("http://127.0.0.1:8000/food/search/$keyword"));//Check this 
 
-    print(jsonDecode(response.body));//need this line???
+    print(jsonDecode(response.body));
     return ListOfFood.fromJson(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
     
   }
@@ -29,7 +29,17 @@ class FoodService {
     var response =
         await http.get(Uri.parse("http://127.0.0.1:8000/food/category/$categoryName")); 
 
-    print(jsonDecode(response.body));//need this line???
+    print(jsonDecode(response.body));
+    return ListOfFood.fromJson(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
+    
+  }
+
+   //Search for restaurant
+  Future<ListOfFood> getFoodByRestaurant(String restaurantName) async {
+    var response =
+        await http.get(Uri.parse("http://127.0.0.1:8000/food/restaurant/$restaurantName")); 
+
+    print(jsonDecode(response.body));
     return ListOfFood.fromJson(jsonDecode(Utf8Decoder().convert(response.bodyBytes)));
     
   }

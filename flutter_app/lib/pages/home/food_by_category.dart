@@ -39,7 +39,7 @@ class _FoodByCategoryState extends State<FoodByCategory> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Most Popular Products",
+                      "Search Results",
                       style: TextStyle(
                         fontSize: 25,
                       ),
@@ -48,7 +48,6 @@ class _FoodByCategoryState extends State<FoodByCategory> {
                   Wrap(
                     children: [
                       ...foods.map((food) {
-                        //print(food.image);
                         return Container(
                           margin: EdgeInsets.all(12.0), //10
                           height: size.height *

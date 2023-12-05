@@ -2,30 +2,28 @@ import 'package:flutter/material.dart';
 
 import '../../data_service/food_service.dart';
 
-class SearchResultFood extends StatefulWidget {
-  final String keyword;
-  const SearchResultFood({
+class FoodByRestaurant extends StatefulWidget {
+  final String restaurantName;
+  const FoodByRestaurant({
     Key? key, 
-    //required this.foodService,
-    //required this.size, 
-    required this.keyword,  //check this required this.foodService, required this.size
+    required this.restaurantName,   //check this required this.foodService, required this.size
   }) : super(key: key);
 
   //final FoodService foodService;
   //final Size size;
 
   @override
-  State<SearchResultFood> createState() => _SearchResultFoodState();
+  State<FoodByRestaurant> createState() => _FoodByRestaurantState();
 }
 
-class _SearchResultFoodState extends State<SearchResultFood> {
+class _FoodByRestaurantState extends State<FoodByRestaurant> {
   FoodService foodService = FoodService();
   late List<Food> foods;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return FutureBuilder<ListOfFood>(
-        future: foodService.getFoodBySearch(widget.keyword),
+        future: foodService.getFoodByRestaurant(widget.restaurantName),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Food> foods = snapshot.data!.foods;
@@ -39,7 +37,7 @@ class _SearchResultFoodState extends State<SearchResultFood> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Search Results",
+                      "Products",
                       style: TextStyle(
                         fontSize: 25,
                       ),
@@ -48,7 +46,6 @@ class _SearchResultFoodState extends State<SearchResultFood> {
                   Wrap(
                     children: [
                       ...foods.map((food) {
-                        //print(food.image);
                         return Container(
                           margin: EdgeInsets.all(12.0), //10
                           height: size.height *

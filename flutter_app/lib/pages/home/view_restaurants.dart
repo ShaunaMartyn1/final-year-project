@@ -1,51 +1,8 @@
-/*import 'package:flutter/material.dart';
-import 'package:flutter_app/data_service/food_service.dart';
-
-
-class ViewRestaurants extends StatefulWidget {
-  const ViewRestaurants({Key? key}) : super(key: key);
-
-  @override
-  State<ViewRestaurants> createState() => _ViewRestaurantState();
-}
-
-class _ViewRestaurantState extends State<ViewRestaurants> {
-  FoodService foodService = FoodService();
-  bool showFoodRestaurant = false;
-  late List<Restaurant> restaurants;
-  String restaurantName = "";
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<RestaurantList>(
-        future: foodService.getRestaurant(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            restaurants = snapshot.data!.restaurants;
-            return Container(
-              child: Column(
-                children: restaurants
-                  .map((restaurant) => Padding(
-                        padding: const EdgeInsets.all(17.0),
-                        child: Text(restaurant.name,
-                            style: TextStyle(
-                              fontSize: 20,
-                            )),
-                      ))
-                  .toList(), //check was restaurant with error
-            ));
-          }
-          if (snapshot.hasError) {
-            print("API Response: ${snapshot.data}");
-          }
-          return CircularProgressIndicator();
-        });
-  }
-}*/
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_service/food_service.dart';
 import 'package:flutter_app/pages/home/food_by_restaurant.dart';
-import 'food_by_restaurant.dart';
+
 
 
 class ViewRestaurants extends StatefulWidget {

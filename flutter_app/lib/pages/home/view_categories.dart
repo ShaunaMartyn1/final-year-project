@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_service/food_service.dart';
 import 'package:flutter_app/pages/home/food_by_category.dart';
-import 'food_by_category.dart';
 //21.46
 
 class ViewCategories extends StatefulWidget {
@@ -25,7 +24,7 @@ class _ViewCategoryState extends State<ViewCategories> {
             categories = snapshot.data!.categories;
             return Container(
                 child: showFoodCategory
-                    ? FoodByCategory(///check this food by category
+                    ? FoodByCategory(
                         categoryName: categoryName,
                       )
                       : Column(
@@ -57,3 +56,4 @@ class _ViewCategoryState extends State<ViewCategories> {
         });
   }
 }
+

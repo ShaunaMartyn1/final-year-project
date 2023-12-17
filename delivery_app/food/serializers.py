@@ -9,7 +9,7 @@ class FoodSerializer(serializers.ModelSerializer):
     image_memory = serializers.SerializerMethodField("get_image_memory")
     price_with_discount = serializers.SerializerMethodField("get_price_with_discount")
 
-    #Food models retreieve these items 
+    #Food models retrieve these items 
     class Meta:
         model=Food
         fields=('id', 'name', 'price', 'discount', 'restaurant', 'category', 'image', 'preview', 'image_memory',

@@ -104,20 +104,7 @@ class Restaurant{
     return Restaurant(name: map['name']);
   }
 }
-/*class ListOfFood {
-  List<Food> foods;
-  ListOfFood({required this.foods});
-  factory ListOfFood.fromList(List list) {
-   
-    List<Food> _foods = [];
-    for (var element in list) {
-      _foods.add(Food.fromJson(element));
-    }
-    return ListOfFood(foods: _foods);
-  } 
-}*///old giving error???
 
-//new
 class ListOfFood {
   late List<Food> foods;
 
@@ -133,9 +120,6 @@ class ListOfFood {
     return ListOfFood(foods: _foods);
   }
 }
-///new end
-
-
 
 class Food {
   int id;

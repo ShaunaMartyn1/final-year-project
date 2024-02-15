@@ -1,0 +1,9 @@
+---------------------------6th of Feb:------------------------------
+Google Maps API's - IOS, Android and Web  all 3 have to be set up seperately
+Plugin for flutter geolocation in google maps. - https://pub.dev/packages/geolocator/install
+Flutter design pattern bloc - https://pub.dev/packages/flutter_bloc
+Installed bloc extension for vs code.
+homepage is set up - with promo clipper working
+Most Popular: Restaurans and their details and delivery time displaying on homepage
+---------------------------12th of Feb-------------------------------
+custom filter created filter by price and category.

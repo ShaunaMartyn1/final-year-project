@@ -27,7 +27,7 @@ SITE_ID = 1
 SECRET_KEY = config("SECRET_KEY")#reads in secret key from .env
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True # change to false when trying to host otherwise keep as True 
 
 ALLOWED_HOSTS = []
 

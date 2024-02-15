@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, curly_braces_in_flow_control_structures
 
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/home/search_result_food.dart';
@@ -339,7 +338,7 @@ import '../../data_service/food_service.dart';
 import 'view_restaurants.dart';
 import 'search_result_food.dart';
 
-//52.56
+
 
 
 enum ShowSelectedType{food, categories, restaurants, searchResult}

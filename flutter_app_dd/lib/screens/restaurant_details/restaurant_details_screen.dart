@@ -36,7 +36,9 @@ static const String routeName = '/restaurant-details';
                 horizontal: 50,
               ),
             ),
-            onPressed: (){},
+            onPressed: (){
+              Navigator.pushNamed(context, '/basket');
+            },
             child: Text('Basket'),
           ),
         ],

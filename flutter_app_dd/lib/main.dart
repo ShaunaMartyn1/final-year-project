@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/blocs/autocomplete/autocomplete_bloc.dart';
+import 'package:flutter_app/blocs/basket/basket_bloc.dart';
 import 'package:flutter_app/blocs/filters/filters_bloc.dart';
 import 'package:flutter_app/blocs/geolocation/geolocation_bloc.dart';
 import 'package:flutter_app/blocs/place/place_bloc.dart';
@@ -44,7 +45,9 @@ class MyApp extends StatelessWidget {
           create: (context) => PlaceBloc(
             placesRepository: context.read<PlacesRepository>())
           ),
-        BlocProvider(create: (context) => FiltersBloc()..add(FilterLoad(),),)
+        BlocProvider(create: (context) => FiltersBloc()..add(FilterLoad(),),),
+        BlocProvider(create: (context) => BasketBloc()..add(StartBasket(),
+        ),)
 
       ],
       child: MaterialApp(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/basket/basket_screen.dart';
 import 'package:flutter_app/screens/checkout/checkout_screen.dart';
 import 'package:flutter_app/screens/delivery_time/delivery_time_screen.dart';
+import 'package:flutter_app/screens/edit_basket/edit_basket_screen.dart';
 import 'package:flutter_app/screens/filter/filter_screen.dart';
 import 'package:flutter_app/screens/home/home_screen.dart';
 import 'package:flutter_app/screens/location/location_screen.dart';
@@ -23,6 +24,9 @@ class AppRouter{
       
       case BasketScreen.routeName:
         return BasketScreen.route();
+
+      case EditBasketScreen.routeName:
+        return EditBasketScreen.route();
       
       case CheckoutScreen.routeName:
         return CheckoutScreen.route();

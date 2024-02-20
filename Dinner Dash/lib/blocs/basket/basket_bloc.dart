@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_app/models/voucher_model.dart';
 
 import '../../models/models.dart';
 
@@ -30,7 +31,9 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         }
         else if (event is ToggleSwitch){
           yield* _mapToggleSwitchToState(event, state);
-
+        }
+        else if (event is AddVoucher){
+          yield* _mapAddVoucherToState(event, state);
         }
     }
 
@@ -105,6 +108,23 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           yield BasketLoaded(
             basket: state.basket.copyWith(
               cutlery: !state.basket.cutlery,
+            ),
+          );
+        }
+        catch (_) {}
+      }
+    }
+
+     Stream <BasketState> _mapAddVoucherToState(
+      AddVoucher event,
+      BasketState state,
+      
+    ) async* {
+      if (state is BasketLoaded){
+        try{
+          yield BasketLoaded(
+            basket: state.basket.copyWith(
+              voucher: event.voucher,
             ),
           );
         }

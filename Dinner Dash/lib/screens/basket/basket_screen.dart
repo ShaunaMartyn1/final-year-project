@@ -3,10 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/basket/basket_bloc.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../blocs/basket/basket_bloc.dart'; // Adjust the path as necessary for your project structure
-
 class BasketScreen extends StatelessWidget {
   static const String routeName = '/basket';
 
@@ -39,7 +35,7 @@ class BasketScreen extends StatelessWidget {
             children: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context)
+                  backgroundColor: Theme.of(context)
                       .colorScheme
                       .secondary, // 'primary' is deprecated and replaced with 'backgroundColor'
                   shape: RoundedRectangleBorder(),
@@ -195,20 +191,40 @@ class BasketScreen extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(5.0),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Text('Have a voucher?',
-                style: Theme.of(context).textTheme.headlineSmall),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: Text('Apply',
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.secondary)),
-          ),
-        ],
+      child: BlocBuilder<BasketBloc, BasketState>(
+        builder: (context, state) {
+          if (state is BasketLoaded)
+          { 
+            return  (state.basket.voucher == null) ?
+            
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text('Have a voucher?',
+                      style: Theme.of(context).textTheme.headlineSmall),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/voucher');
+                  },
+                  child: Text(
+                    'Apply',
+                      style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(color: Theme.of(context).colorScheme.secondary),
+                    ),
+                  ),
+              ],
+            )
+          : Text('Voucher Added', style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall);
+          }else {
+            return Text('Error');
+          }
+        },
       ),
     );
   }
@@ -224,58 +240,56 @@ class BasketScreen extends StatelessWidget {
       ),
       child: BlocBuilder<BasketBloc, BasketState>(
         builder: (context, state) {
-          if (state is BasketLoading){
-            return Center(child: CircularProgressIndicator()
-            );
+          if (state is BasketLoading) {
+            return Center(child: CircularProgressIndicator());
           }
           if (state is BasketLoaded) {
             return Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Subtotal',
-                      style: Theme.of(context).textTheme.headlineSmall!),
-                  Text('\€${state.basket.subtotalString}',
-                      style: Theme.of(context).textTheme.headlineSmall!),
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Delivery Fee',
-                      style: Theme.of(context).textTheme.headlineSmall!),
-                  Text('\€3.99',
-                      style: Theme.of(context).textTheme.headlineSmall!),
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Total',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall!
-                          .copyWith(
-                              color: Theme.of(context).colorScheme.secondary)),
-                  Text('\€${state.basket.totalString}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall!
-                          .copyWith(
-                              color: Theme.of(context).colorScheme.secondary)),
-                ],
-              ),
-            ],
-          );
-
-          }
-          else {
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Subtotal',
+                        style: Theme.of(context).textTheme.headlineSmall!),
+                    Text('\€${state.basket.subtotalString}',
+                        style: Theme.of(context).textTheme.headlineSmall!),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Delivery Fee',
+                        style: Theme.of(context).textTheme.headlineSmall!),
+                    Text('\€3.99',
+                        style: Theme.of(context).textTheme.headlineSmall!),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Total',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.secondary)),
+                    Text('\€${state.basket.totalString}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.secondary)),
+                  ],
+                ),
+              ],
+            );
+          } else {
             return Text('Error');
           }
-          
         },
       ),
     );

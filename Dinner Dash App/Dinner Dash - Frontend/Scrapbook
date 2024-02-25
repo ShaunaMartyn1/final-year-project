@@ -1,0 +1,19 @@
+---------------------------6th of Feb:------------------------------
+Google Maps API's - IOS, Android and Web  all 3 have to be set up seperately
+Plugin for flutter geolocation in google maps. - https://pub.dev/packages/geolocator/install
+Flutter design pattern bloc - https://pub.dev/packages/flutter_bloc
+Installed bloc extension for vs code.
+homepage is set up - with promo clipper working
+Most Popular: Restaurans and their details and delivery time displaying on homepage
+---------------------------12th of Feb-------------------------------
+custom filter created filter by price and category.
+basket section added.
+edit basket
+add vouchers to order
+change delivery time 
+---------------------------20th of Feb------------------------------------
+Install Firebase Cli - npm install firebase - https://firebase.google.com/docs/cli#install-cli-windows
+npm install -g firebase-tools
+firebase login - then connect to Flutter - Delivery - App already created
+
+

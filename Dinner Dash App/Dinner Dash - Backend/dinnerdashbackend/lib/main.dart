@@ -1,6 +1,12 @@
 import 'package:dinnerdashbackend/blocs/category/category_bloc.dart';
+import 'package:dinnerdashbackend/blocs/product/product_bloc.dart';
+import 'package:dinnerdashbackend/blocs/settings/settings_bloc.dart';
 import 'package:dinnerdashbackend/models/category_model.dart';
+import 'package:dinnerdashbackend/models/opening_hours_model.dart';
+import 'package:dinnerdashbackend/models/product_model.dart';
+import 'package:dinnerdashbackend/models/restaurant_model.dart';
 import 'package:dinnerdashbackend/screens/menu/menu_screen.dart';
+import 'package:dinnerdashbackend/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,22 +24,38 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => CategoryBloc()
-          ..add(
-            LoadCategories(categories: Category.categories),
+            ..add(
+              LoadCategories(categories: Category.categories),
             ),
         ),
-    ],
-    child:
-      MaterialApp(
+        BlocProvider(
+          create: (context) =>
+              ProductBloc(categoryBloc: BlocProvider.of<CategoryBloc>(context))
+                ..add(
+                  LoadProducts(products: Product.products),
+                ),
+        ),
+        BlocProvider(
+          create: (context) => SettingsBloc()
+            ..add(
+              LoadSettings(
+                restaurant:
+                    Restaurant(openingHours: OpeningHours.openingHoursList),
+              ),
+            ),
+        )
+      ],
+      child: MaterialApp(
         title: 'Food Delivery App Backend ',
         theme: ThemeData(),
         initialRoute: '/menu',
         routes: {
           '/menu': (context) => const MenuScreen(),
+          '/settings': (context) => const SettingsScreen(),
         },
         home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
-    ) ;
+    );
   }
 }
 
@@ -57,7 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
@@ -69,9 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        
         child: Column(
-          
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(

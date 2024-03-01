@@ -14,6 +14,12 @@ change delivery time
 ---------------------------20th of Feb------------------------------------
 Install Firebase Cli - npm install firebase - https://firebase.google.com/docs/cli#install-cli-windows
 npm install -g firebase-tools
-firebase login - then connect to Flutter - Delivery - App already created
+firebase login - then connect to Flutter - Delivery - App already created - NOT FINISHED
+started backend
+----------------------------27th of Feb---------------------------
+https://pub.dev/packages/tflite_flutter/install - install tflite for image recognition
+https://pub.dev/packages/image - image package
+https://pub.dev/packages/camera - access devices camera
+https://medium.com/@sudeshnb/how-to-integrate-ai-models-or-apis-into-your-flutter-application-e6b3e6334ba8 
 
 

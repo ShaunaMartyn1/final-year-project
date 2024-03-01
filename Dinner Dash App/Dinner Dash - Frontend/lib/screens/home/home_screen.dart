@@ -71,7 +71,15 @@ class HomeScreen extends StatelessWidget {
                 })
             ],
           ),
-        )
+        ),
+        ////AI Features
+        floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));//check HomeScreen
+        },
+        child: Icon(Icons.camera_alt),
+        tooltip: 'AI Features',
+      ),
     );
   }
 }

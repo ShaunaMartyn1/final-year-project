@@ -18,8 +18,8 @@ class CustomDrawer extends StatelessWidget {
         'route': '/menu',
         'icon': const Icon(Icons.menu_book),
       },
-      'Opening Hours': {
-        'route': '/opening-hours',
+      'Settings': {
+        'route': '/settings',
         'icon': const Icon(Icons.lock_clock),
       },
       'Logout': {
@@ -50,10 +50,10 @@ class CustomDrawer extends StatelessWidget {
             leading: screen.value['icon'],
             title: Text(screen.key),
             onTap: () {
-              Navigator.pushNamed(context, screen.value['routeName']);
+              Navigator.pushNamed(context, screen.value['route']);
             },
           );
-          })
+          }).toList(),
       ],
       ),
     );

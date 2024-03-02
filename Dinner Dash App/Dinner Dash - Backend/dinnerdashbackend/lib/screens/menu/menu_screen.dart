@@ -245,17 +245,22 @@ class MenuScreen extends StatelessWidget {
                 return ReorderableListView(
                   shrinkWrap: true,
                   children: [
-                    for (int index = 0; index < state.categories.length; index++)
+                    for (int index = 0;
+                        index < state.categories.length;
+                        index++)
                       CategoryListTile(
                         category: state.categories[index],
                         onTap: () {
-                          context.read<CategoryBloc>().add(SelectCategory(state.categories[index]));
+                          context
+                              .read<CategoryBloc>()
+                              .add(SelectCategory(state.categories[index]));
                         },
                         key: ValueKey(state.categories[index].id),
                       ),
                   ],
                   onReorder: (oldIndex, newIndex) {
-                    context.read<CategoryBloc>().add(SortCategories(oldIndex: oldIndex, newIndex: newIndex));
+                    context.read<CategoryBloc>().add(
+                        SortCategories(oldIndex: oldIndex, newIndex: newIndex));
                   },
                 );
               } else {
@@ -298,7 +303,8 @@ class MenuScreen extends StatelessWidget {
                     ),
                 ],
                 onReorder: (oldIndex, newIndex) {
-                  context.read<ProductBloc>().add(SortProducts(oldIndex: oldIndex, newIndex: newIndex));
+                  context.read<ProductBloc>().add(
+                      SortProducts(oldIndex: oldIndex, newIndex: newIndex));
                 },
               );
             } else {
@@ -331,23 +337,11 @@ class MenuScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(height: 20.0),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 200,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: Product.products.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ProductCard(
-                            product: Product.products[index],
-                            index: index,
-                          );
-                        },
-                      ),
-                    ),
+                    _buildProductCarousel(),
                     const SizedBox(height: 20.0),
                     Container(
-                      constraints: const BoxConstraints(minHeight: 300, maxHeight: 1000),
+                      constraints:
+                          const BoxConstraints(minHeight: 300, maxHeight: 1000),
                       child: Row(
                         children: [
                           Expanded(
@@ -373,18 +367,53 @@ class MenuScreen extends StatelessWidget {
               ),
             ),
           ),
-          if (Responsive.isWideDesktop(context) || Responsive.isDesktop(context))
+          if (Responsive.isWideDesktop(context) ||
+              Responsive.isDesktop(context))
             Expanded(
               child: Container(
-                margin: const EdgeInsets.only(top: 20.0, bottom: 20.0, right: 20.0),
+                margin:
+                    const EdgeInsets.only(top: 20.0, bottom: 20.0, right: 20.0),
                 color: Theme.of(context).colorScheme.background,
-                child: const Center(child: Text('Put something here, image or ads or whatever')),
+                child: const Center(
+                    child:
+                        Text('Put something here, image or ads or whatever')),
               ),
             ),
         ],
       ),
     );
   }
+
+  BlocBuilder<ProductBloc, ProductState> _buildProductCarousel() {
+    return BlocBuilder<ProductBloc, ProductState>(
+                    builder: (context, state) {
+                      if (state is ProductLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors
+                                .amber, // Replace with a valid constant color value
+                          ),
+                        );
+                      }
+                      if (state is ProductLoaded) {
+                        return SizedBox(
+                          width: double.infinity,
+                          height: 200,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: state.products.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ProductCard(
+                                product: state.products[index],
+                                index: index,
+                              );
+                            },
+                          ),
+                        );
+                      } else {
+                        return const Text('Error loading products');
+                      }
+                    },
+                  );
+  }
 }
-
-

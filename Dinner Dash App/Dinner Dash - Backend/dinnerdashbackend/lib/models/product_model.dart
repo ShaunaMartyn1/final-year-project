@@ -2,23 +2,21 @@ import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {
   
-  final String id;
+  final String? id;
   final String name;
   final String category;
   final String description;
   final String imageUrl;
   final double price;
-  final int index;
   
   
   const Product({
-    required this.id,
+    this.id,
     required this.name,
     required this.category,
     required this.description,
     required this.imageUrl,
     required this.price,
-    required this.index,
   });
 
   Product copyWith({
@@ -28,7 +26,7 @@ class Product extends Equatable {
     String? description,
     String? imageUrl,
     double? price,
-    int? index,
+   
   }) {
     return Product(
       id: id ?? this.id,
@@ -37,7 +35,6 @@ class Product extends Equatable {
       description: description ?? this.description,
       imageUrl: imageUrl ?? this.imageUrl,
       price: price ?? this.price,
-      index: index ?? this.index,
     );
   }
 
@@ -49,12 +46,11 @@ class Product extends Equatable {
       description: json['description'],
       imageUrl: json['imageUrl'],
       price: json['price'],
-      index: json['index'],
     );
   }
 
   @override
-  List<Object> get props => [id, name, price, description, imageUrl, category, index];
+  List<Object> get props => [id!, name, price, description, imageUrl, category];//check id 
 
   static List<Product> products = const [
     Product(
@@ -64,7 +60,6 @@ class Product extends Equatable {
       description: 'Spaghetti with a rich tomato and meat sauce',
       imageUrl: 'assets/spaghettibolognese.jpg',
       price: 12.99,
-      index: 0,
     ),
     Product(
       id: '2',
@@ -73,7 +68,6 @@ class Product extends Equatable {
       description: 'Tomato, mozzarella, and basil',
       imageUrl: 'assets/MargheritaPizza.jpg',
       price: 9.99,
-      index: 1,
     ),
     Product(
       id: '3',
@@ -82,7 +76,6 @@ class Product extends Equatable {
       description: 'Coffee-flavoured Italian dessert',
       imageUrl: 'assets/tiramisu.jpg',
       price: 6.99,
-      index: 2,
     ),
     Product(
       id: '4',
@@ -91,7 +84,6 @@ class Product extends Equatable {
       description: 'Grilled bread rubbed with garlic and topped with tomatoes, olive oil, salt, and pepper',
       imageUrl: 'assets/bruschetta.jpg',
       price: 5.99,
-      index: 3,
     ),
   ];
 }

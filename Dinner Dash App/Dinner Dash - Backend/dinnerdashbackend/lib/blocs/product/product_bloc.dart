@@ -13,14 +13,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final CategoryBloc _categoryBloc;
   StreamSubscription? _categorySubscription;
 
-
   ProductBloc({required CategoryBloc categoryBloc})
-    : _categoryBloc = categoryBloc,
-      super(ProductLoading()) {
-    
+      : _categoryBloc = categoryBloc,
+        super(ProductLoading()) {
     on<LoadProducts>(_onLoadProducts);
     on<UpdateProducts>(_onUpdateProducts);
     on<SortProducts>(_onSortProducts);
+    on<AddProduct>(_onAddProduct);
 
     _categorySubscription = _categoryBloc.stream.listen((state) {
       if (state is CategoryLoaded && state.selectedCategory != null) {
@@ -29,8 +28,22 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
   }
 
-  void _onLoadProducts(LoadProducts event,
-  Emitter <ProductState> emit) async {
+  void _onAddProduct(
+    AddProduct event,
+    Emitter<ProductState> emit,
+  ) async {
+    if (state is ProductLoaded) {
+      print('Product added');
+      emit(
+        ProductLoaded(
+          products: List.from((state as ProductLoaded).products)
+            ..add(event.product),
+        ),
+      );
+    }
+  }
+
+  void _onLoadProducts(LoadProducts event, Emitter<ProductState> emit) async {
     await Future<void>.delayed(const Duration(seconds: 1));
     emit(ProductLoaded(products: event.products));
   }
@@ -43,8 +56,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     await Future<void>.delayed(const Duration(seconds: 1));
 
     List<Product> filteredProducts = Product.products
-      .where((product) => product.category == event.category.name)
-      .toList();
+        .where((product) => product.category == event.category.name)
+        .toList();
 
     emit(ProductLoaded(products: filteredProducts));
   }
@@ -52,5 +65,5 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   void _onSortProducts(
     SortProducts event,
     Emitter<ProductState> emit,
-  ){}
+  ) {}
 }

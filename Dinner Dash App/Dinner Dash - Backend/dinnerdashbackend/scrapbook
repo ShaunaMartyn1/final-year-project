@@ -3,4 +3,15 @@ https://code.visualstudio.com/docs/editor/refactoring
 https://refactoring.com/catalog/extractFunction.html
 https://stackoverflow.com/questions/71565363/cannot-use-extract-method-function-in-visual-studio-code-when-coding-in-c-sharp
 
-extract a method right click on the code and the refacror then extract method is there.....
+extract a method right click on the code and the refacror then extract method is there..... click once double click it wont show
+
+install firebase cli: https://firebase.google.com/docs/cli#install-cli-windows
+- npm install -g firebase-tools
+- flutter pub add flutterfire_ui
+- dart pub global activate flutterfire_cli
+Set path  - set PATH=%PATH%;C:\Users\shaun\AppData\Local\Pub\Cache\bin - maybe setx 
+- flutterfire configure
+
+https://pub.dev/packages/cloud_firestore/install
+https://pub.dev/packages/firebase_core/install
+https://pub.dev/packages/flutterfire_ui/install

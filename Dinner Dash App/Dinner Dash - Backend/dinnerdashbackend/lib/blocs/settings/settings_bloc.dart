@@ -1,17 +1,31 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dinnerdashbackend/models/opening_hours_model.dart';
 import 'package:dinnerdashbackend/models/restaurant_model.dart';
+import 'package:dinnerdashbackend/repos/restaurant/restaurant_repo.dart';
 import 'package:equatable/equatable.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  SettingsBloc() : super(SettingsLoading()) {
+  final RestaurantRepo _restaurantRepo;
+  StreamSubscription? _restaurantSubscription;
+
+
+  SettingsBloc({required RestaurantRepo restaurantRepo}) 
+      : _restaurantRepo = restaurantRepo,
+        super(SettingsLoading()) {
     
     on<LoadSettings>(_onLoadSettings);
     on<UpdateSettings>(_onUpdateSettings);
     on<UpdateOpeningHours>(_onUpdateOpeningHours);
+
+    _restaurantSubscription = _restaurantRepo.getRestaurant().listen((restaurant) {
+      print(restaurant);
+      add(LoadSettings(restaurant: restaurant));
+    });
   }
 
   void _onLoadSettings(
@@ -47,6 +61,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           state.restaurant.copyWith(openingHours: openingHoursList)
         ));
       }
+    }
+
+    @override
+    Future<void> close() {
+      _restaurantSubscription?.cancel();
+      return super.close();
     }
 }
   

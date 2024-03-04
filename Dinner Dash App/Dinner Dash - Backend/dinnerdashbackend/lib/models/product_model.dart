@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 class Product extends Equatable {
   
   final String? id;
+  final String? restaurantId;
   final String name;
   final String category;
   final String description;
@@ -12,6 +13,7 @@ class Product extends Equatable {
   
   const Product({
     this.id,
+    this.restaurantId,
     required this.name,
     required this.category,
     required this.description,
@@ -21,6 +23,7 @@ class Product extends Equatable {
 
   Product copyWith({
     String? id,
+    String? restaurantId,
     String? name,
     String? category,
     String? description,
@@ -30,6 +33,7 @@ class Product extends Equatable {
   }) {
     return Product(
       id: id ?? this.id,
+      restaurantId: restaurantId ?? this.restaurantId,
       name: name ?? this.name,
       category: category ?? this.category,
       description: description ?? this.description,
@@ -38,23 +42,37 @@ class Product extends Equatable {
     );
   }
 
-  factory Product.fromJson(Map<String, dynamic> json) {
+  Map<String, dynamic> toDocument() {
+    return {
+      'id': id,
+      'restaurantId': restaurantId,
+      'name': name,
+      'category': category,
+      'description': description,
+      'imageUrl': imageUrl,
+      'price': price,
+    };
+  }
+
+  factory Product.fromJson(Map<String, dynamic> snap) {
     return Product(
-      id: json['id'],
-      name: json['name'],
-      category: json['category'],
-      description: json['description'],
-      imageUrl: json['imageUrl'],
-      price: json['price'],
+      id: snap['id'].toString(),
+      restaurantId: snap['restaurantId'],
+      name: snap['name'],
+      category: snap['category'],
+      description: snap['description'],
+      imageUrl: snap['imageUrl'],
+      price: snap['price'],
     );
   }
 
   @override
-  List<Object> get props => [id!, name, price, description, imageUrl, category];//check id 
+  List<Object> get props => [id!, restaurantId!,  name, price, description, imageUrl, category];//check id +restaurantId
 
   static List<Product> products = const [
     Product(
       id: '1',
+      restaurantId: 'LyXqruY9ud3ni3RtzJzf',
       name: 'Spaghetti Bolognese',
       category: 'Italian',
       description: 'Spaghetti with a rich tomato and meat sauce',
@@ -63,6 +81,7 @@ class Product extends Equatable {
     ),
     Product(
       id: '2',
+      restaurantId: 'LyXqruY9ud3ni3RtzJzf',
       name: 'Margherita Pizza',
       category: 'Pizza',
       description: 'Tomato, mozzarella, and basil',
@@ -71,6 +90,7 @@ class Product extends Equatable {
     ),
     Product(
       id: '3',
+      restaurantId: 'LyXqruY9ud3ni3RtzJzf',
       name: 'Tiramisu',
       category: 'Dessert',
       description: 'Coffee-flavoured Italian dessert',
@@ -79,6 +99,7 @@ class Product extends Equatable {
     ),
     Product(
       id: '4',
+      restaurantId: 'LyXqruY9ud3ni3RtzJzf',
       name: 'Bruschetta',
       category: 'Pizza',
       description: 'Grilled bread rubbed with garlic and topped with tomatoes, olive oil, salt, and pepper',

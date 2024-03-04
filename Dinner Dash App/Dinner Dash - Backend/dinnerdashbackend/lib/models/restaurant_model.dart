@@ -1,7 +1,7 @@
-import 'package:dinnerdashbackend/models/category_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dinnerdashbackend/models/models.dart';
-import 'package:dinnerdashbackend/models/product_model.dart';
 import 'package:equatable/equatable.dart';
+
 
 class Restaurant extends Equatable{
   final String? id;
@@ -55,6 +55,52 @@ class Restaurant extends Equatable{
       categories: categories ?? this.categories,
       products: products ?? this.products,
       openingHours: openingHours ?? this.openingHours,
+    );
+  }
+
+  Map<String, dynamic> toDocument() {
+    return {
+      'id': id ?? '',
+      'name': name ?? '',
+      'imageUrl': imageUrl ?? '',
+      'description': description ?? '',
+      'tags': tags ?? [],
+      'categories': categories!.map((category){
+        return category.toDocument();
+      }).toList(),
+      'products': products!.map(
+        (product){
+        return product.toDocument();
+      }).toList(),
+      'openingHours': openingHours!.map(
+        (openingHours){
+        return openingHours.toDocument();
+      }).toList(),
+    };
+  }
+
+  factory Restaurant.fromSnapshot(DocumentSnapshot snap) {
+    return Restaurant(
+      id: snap.id,
+      name: snap['name'],
+      imageUrl: snap['imageUrl'],
+      description: snap['description'],
+      tags: (snap['tags'] as List).map((tag){
+        return tag.toString();
+      }).toList(),
+      categories: (snap['categories'] as List).map((category){
+        return Category.fromSnapshot(category);
+      }).toList(),
+      /*products: (snap['products'] as List).map(
+        (product) {
+          return Product.fromSnapshot(product);
+      }).toList(), getting error on this*/
+      products: List<Map<String, dynamic>>.from(snap['products'] ?? [])
+        .map(Product.fromJson).toList(),
+      openingHours: (snap['openingHours'] as List).map((openingHour){
+        return OpeningHours.fromSnapshot(openingHour);//check this is openhours or hour
+      }).toList(),
+      
     );
   }
 

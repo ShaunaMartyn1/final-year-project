@@ -1,6 +1,6 @@
 part of 'product_bloc.dart';
 
-sealed class ProductState extends Equatable {
+abstract class ProductState extends Equatable {
   const ProductState();
   
   @override

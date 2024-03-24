@@ -34,6 +34,7 @@ class Category extends Equatable {
     );
   }
 
+  // Convert the Category object to a map
   Map<String, dynamic> toDocument() {
     return {
       'id': id,

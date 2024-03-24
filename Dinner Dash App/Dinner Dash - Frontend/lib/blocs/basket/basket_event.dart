@@ -1,6 +1,6 @@
 part of 'basket_bloc.dart';
 
-sealed class BasketEvent extends Equatable {
+abstract class BasketEvent extends Equatable {
   const BasketEvent();
 
   @override
@@ -12,33 +12,33 @@ class StartBasket extends BasketEvent {
   List<Object> get props => [];
 }
 
-class AddItem extends BasketEvent {
-  final MenuItem item;
+class AddProduct extends BasketEvent {
+  final Product product;
 
-  const AddItem(this.item);
+  const AddProduct(this.product);
   
   @override
-  List<Object> get props => [item];
+  List<Object> get props => [product];
 }
 
-class RemoveItem extends BasketEvent {
+class RemoveProduct extends BasketEvent {
 
-  final MenuItem item;
+  final Product product;
 
-  const RemoveItem(this.item);
+  const RemoveProduct(this.product);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [product];
 }
 
-class RemoveAllItem extends BasketEvent {
+class RemoveAllProduct extends BasketEvent {
 
-  final MenuItem item;
+  final Product product;
 
-  const RemoveAllItem(this.item);
+  const RemoveAllProduct(this.product);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [product];
 }
 
 class ToggleSwitch extends BasketEvent {

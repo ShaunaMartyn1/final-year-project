@@ -64,4 +64,12 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    // Add the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics'
+
+    // Add other Firebase SDK here
+}
+
+// Apply the Google services plugin at the end of the file
+apply plugin: 'com.google.gms.google-services'

@@ -1,6 +1,6 @@
 part of 'basket_bloc.dart';
 
-sealed class BasketState extends Equatable {
+abstract class BasketState extends Equatable {
   const BasketState();
   
   

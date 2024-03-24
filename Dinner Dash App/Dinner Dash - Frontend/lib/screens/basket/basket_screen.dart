@@ -109,7 +109,7 @@ class BasketScreen extends StatelessWidget {
                   if (state is BasketLoading) {
                     return Center(child: CircularProgressIndicator());
                   } else if (state is BasketLoaded) {
-                    if (state.basket.items.isEmpty) {
+                    if (state.basket.products.isEmpty) {
                       return Padding(
                         padding: EdgeInsets.symmetric(vertical: 20),
                         child: Center(child: Text('Basket is empty')),
@@ -120,12 +120,12 @@ class BasketScreen extends StatelessWidget {
                             true, // Important to prevent infinite height error
                         physics:
                             NeverScrollableScrollPhysics(), // Disables scrolling within ListView
-                        itemCount: state.basket.items.length,
+                        itemCount: state.basket.products.length,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text(state.basket.items[index].name),
+                            title: Text(state.basket.products[index].name),
                             trailing: Text(
-                                '€${state.basket.items[index].price.toString()}'),
+                                '€${state.basket.products[index].price.toString()}'),
                           );
                         },
                       );
@@ -276,7 +276,7 @@ class BasketScreen extends StatelessWidget {
                   children: [
                     Text('Delivery Fee',
                         style: Theme.of(context).textTheme.headlineSmall!),
-                    Text('\€3.99',
+                    Text('\€0.00',
                         style: Theme.of(context).textTheme.headlineSmall!),
                   ],
                 ),

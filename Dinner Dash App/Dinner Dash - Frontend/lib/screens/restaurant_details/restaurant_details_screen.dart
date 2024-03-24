@@ -63,7 +63,8 @@ class RestaurantDetailsScreen extends StatelessWidget {
                   ),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/dominos.png'), //change this later
+                    //image: AssetImage('assets/dominos.png'), //change this later
+                    image: AssetImage(restaurant.imageUrl),
                   ),
                 ),
               ),
@@ -72,9 +73,9 @@ class RestaurantDetailsScreen extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: restaurant.tags.length,
+                itemCount: restaurant.categories.length,
                 itemBuilder: (context, index) {
-                  return _builderMenuItems(restaurant, context, index);
+                  return _builderproducts(restaurant, context, index);
                 },
               )
             ],
@@ -82,7 +83,7 @@ class RestaurantDetailsScreen extends StatelessWidget {
         ));
   }
 
-  Widget _builderMenuItems(
+  Widget _builderproducts(
       Restaurant restaurant, BuildContext context, int index) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +91,7 @@ class RestaurantDetailsScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Text(
-            restaurant.tags[index],
+            restaurant.categories[index].name,//pass as a string
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).secondaryHeaderColor,
                   fontSize: 25,
@@ -98,10 +99,10 @@ class RestaurantDetailsScreen extends StatelessWidget {
           ),
         ),
         Column(
-          children: restaurant.menuItems
-              .where((menuItem) => menuItem.category == restaurant.tags[index])
+          children: restaurant.products
+              .where((product) => product.category == restaurant.categories[index].name)//show as a string
               .map(
-                (menuItem) => Column(
+                (product) => Column(
                   children: [
                     Container(
                       color: Colors.white,
@@ -110,14 +111,14 @@ class RestaurantDetailsScreen extends StatelessWidget {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: Text(
-                          menuItem.name,
+                          product.name,
                           style:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     fontSize: 18,
                                   ),
                         ),
                         subtitle: Text(
-                          menuItem.description,
+                          product.description,
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
@@ -129,7 +130,7 @@ class RestaurantDetailsScreen extends StatelessWidget {
                               .min, //align buttons to the right to add
                           children: [
                             Text(
-                              '\€${menuItem.price}',
+                              '\€${product.price}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
@@ -147,7 +148,7 @@ class RestaurantDetailsScreen extends StatelessWidget {
                                   onPressed: () {
                                     context
                                         .read<BasketBloc>()
-                                        .add(AddItem(menuItem));
+                                        .add(AddProduct(product));
                                   },
                                 );
                               },

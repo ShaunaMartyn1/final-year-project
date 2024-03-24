@@ -17,7 +17,8 @@ class RestaurantCard extends StatelessWidget {
     return InkWell(
       onTap:() {
         print(restaurant);//console log this to see if it works
-        Navigator.pushNamed(context, '/restaurant-details',
+        Navigator.pushNamed(
+          context, '/restaurant-details',
           arguments: restaurant);
       },
       child: Column(

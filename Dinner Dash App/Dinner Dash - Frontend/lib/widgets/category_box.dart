@@ -39,7 +39,7 @@ class CategoryBox extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5.0),
                   color: Colors.white,
                 ),
-                child: category.image,
+                //child: category.image, - dont need anymore
               ),
             ),
             Padding(

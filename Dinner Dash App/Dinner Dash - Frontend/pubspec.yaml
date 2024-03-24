@@ -36,17 +36,24 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.2 #ios style icons for flutter
   google_maps_flutter: ^2.5.3
   geolocator: ^10.1.0
   #flutter_bloc: ^8.1.3  #- the latest version doesnt work.
   flutter_bloc: ^7.3.0 # think this is working
   equatable: ^2.0.3
   http: ^0.13.0
-  tflite:  ^1.1.2 #^2.1.0 new version not working for AI
-  tflite_flutter: ^0.10.4 #ai
-  image: ^4.1.7 #ai
-  camera: ^0.10.5+9 #ai access the devices camera
+  
+  #Login pages
+  sign_in_button: ^3.2.0
+  firebase_core: ^2.27.0
+  firebase_auth: ^4.17.8
+  firebase_analytics: ^10.8.9
+  
+  
+  cloud_firestore: ^4.15.9
+
+  
 
 dev_dependencies:
   flutter_test:

@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_app/models/category_model.dart';
 
 class CategoryFilter extends Equatable{
-  final id;
+  final String id;
   final Category category;
   final bool value;
 
@@ -14,7 +14,7 @@ class CategoryFilter extends Equatable{
   });
 
   CategoryFilter copyWith({
-    int? id,
+    String? id,
     Category? category,
     bool? value
   }) {

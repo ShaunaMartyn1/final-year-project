@@ -5,3 +5,6 @@ export 'menu_item_model.dart';
 export 'place_autocomplete_model.dart';
 export 'place_model.dart';
 export 'restaurant_model.dart';
+export 'product_model.dart';
+export 'opening_hours_model.dart';
+export 'delivery_time_model.dart';

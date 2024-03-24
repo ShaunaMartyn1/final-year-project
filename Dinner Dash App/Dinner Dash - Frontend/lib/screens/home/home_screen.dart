@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/blocs/restaurant/restaurant_bloc.dart';
 import 'package:flutter_app/models/category_model.dart';
 import 'package:flutter_app/models/restaurant_model.dart';
 import 'package:flutter_app/widgets/category_box.dart';
 import 'package:flutter_app/widgets/food_search_box.dart';
 import 'package:flutter_app/widgets/promo_box.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/promo_model.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String routeName = '/';//home
+  static const String routeName = '/'; //home
 
   static Route route() {
     return MaterialPageRoute(
-        builder: (_) => HomeScreen(),
-        settings: RouteSettings(name: routeName),
+      builder: (_) => HomeScreen(),
+      settings: RouteSettings(name: routeName),
     );
   }
 
@@ -21,64 +23,75 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-        appBar: CustomAppBar(),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 100,
-                  child: ListView.builder(
+      appBar: CustomAppBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 100,
+                child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemCount: Category.categories.length,
-                    itemBuilder: (context, index){
+                    itemBuilder: (context, index) {
                       return CategoryBox(category: Category.categories[index]);
-                  }),
-                ),
+                    }),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 125,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: Promo.promos.length,//promos lenght 
-                    itemBuilder: (context, index){
-                      return PromoBox(promo: Promo.promos[index]);
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 125,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: Promo.promos.length, //promos lenght
+                  itemBuilder: (context, index) {
+                    return PromoBox(promo: Promo.promos[index]);
                   },
                 ),
+              ),
+            ),
+            FoodSearchBox(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Popular Restaurants',
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
-              FoodSearchBox(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Popular Restaurants',
-                    style: Theme.of(context).textTheme.headlineMedium,),
-                ),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: Restaurant.restaurants.length,
-                itemBuilder: (context, index){
-                  return RestaurantCard(restaurant: Restaurant.restaurants[index]);
-                })
-            ],
-          ),
+            ),
+            BlocBuilder<RestaurantBloc, RestaurantState>(
+              builder: (context, state) {
+                if (state is RestaurantLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is RestaurantLoaded) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: state.restaurants.length,
+                        itemBuilder: (context, index) {
+                          return RestaurantCard(
+                              restaurant: state.restaurants[index]
+                          );
+                        }),
+                  );
+                } else {
+                  return Text('Something went wrong');
+                }
+              },
+            )
+          ],
         ),
-        ////AI Features
-        floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));//check HomeScreen
-        },
-        child: Icon(Icons.camera_alt),
-        tooltip: 'AI Features',
       ),
     );
   }
@@ -89,7 +102,7 @@ class RestaurantCard extends StatelessWidget {
   const RestaurantCard({
     Key? key,
     required this.restaurant,
-    }) : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,15 +112,16 @@ class RestaurantCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
-            children:[ Container(
-              width: MediaQuery.of(context).size.width,
-              height: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                image: DecorationImage(
-                  //image: NetworkImage(restaurant.imageUrl),
-                  image: AssetImage('assets/dominos.png'),
-                  fit: BoxFit.cover,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.0),
+                  image: DecorationImage(
+                    image: NetworkImage(restaurant.imageUrl),
+                    //image: AssetImage('assets/dominos.png'), //change this later
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -118,9 +132,10 @@ class RestaurantCard extends StatelessWidget {
                   width: 60,
                   height: 30,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5.0,)
-                  ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(
+                        5.0,
+                      )),
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
@@ -137,25 +152,26 @@ class RestaurantCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Text(restaurant.name,
-                  style: Theme.of(context).textTheme.headlineSmall),
-              SizedBox(height: 5),
-              //Text('${restaurant.tags}'),
-              Row(
-                children: restaurant.tags
-                  .map(
-                    (tag) => restaurant.tags.indexOf(tag) ==
-                                restaurant.tags.length -1
-                        ? Text(tag,
-                            style: Theme.of(context).textTheme.bodySmall)
-          
-                        : Text('$tag,',
-                            style: Theme.of(context).textTheme.bodySmall),
+                Text(restaurant.name,
+                    style: Theme.of(context).textTheme.headlineSmall),
+                SizedBox(height: 5),
+                //Text('${restaurant.tags}'),
+                Row(
+                    children: restaurant.tags
+                        .map(
+                          (tag) => restaurant.tags.indexOf(tag) ==
+                                  restaurant.tags.length - 1
+                              ? Text(tag,
+                                  style: Theme.of(context).textTheme.bodySmall)
+                              : Text('$tag,',
+                                  style: Theme.of(context).textTheme.bodySmall),
                         )
                         .toList()),
                 SizedBox(height: 5),
-              Text('${restaurant.distance}km - \€${restaurant.deliveryFee} delivery fee'),
-            ],),
+                Text(
+                    '${restaurant.distance}km - \€${restaurant.deliveryFee} delivery fee'),
+              ],
+            ),
           )
         ],
       ),
@@ -163,11 +179,8 @@ class RestaurantCard extends StatelessWidget {
   }
 }
 
-
-
 //class CustomAppBar extends StatelessWidget with PreferredSizeWidget { - Error on PreferredSizeWidget
-  class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     Key? key,
   }) : super(key: key);
@@ -175,27 +188,33 @@ class RestaurantCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-      icon: Icon(Icons.person),
-      onPressed: (){},
-    ),
-    centerTitle: false,
-    title: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Current Location:',
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: Colors.white
-              ),
+        leading: IconButton(
+          icon: Icon(Icons.person),
+          onPressed: () {},
         ),
-        Text('123 Eyre Square, Galway',style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              color: Colors.white
-              ),
-        ),
-      ],
-    ));
+        centerTitle: false,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Current Location:',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: Colors.white),
+            ),
+            Text(
+              '123 Eyre Square, Galway',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(color: Colors.white),
+            ),
+          ],
+        ));
   }
-  
+
   @override
-  Size get preferredSize => Size.fromHeight(56.0);// standard flutter size for appbar
+  Size get preferredSize =>
+      Size.fromHeight(56.0); // standard flutter size for appbar
 }

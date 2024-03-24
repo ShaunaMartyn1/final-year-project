@@ -7,14 +7,14 @@ part 'category_state.dart';
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc() : super(CategoryLoading()) {
-   
+  
       on<LoadCategories>(_onLoadCategories);
       on<SortCategories>(_onSortCategories);
       on<SelectCategory>(_onSelectCategory);
   }
 
   void _onLoadCategories(
-    LoadCategories event, 
+    LoadCategories event,
     Emitter<CategoryState> emit,
     )async {
       await Future<void>.delayed(const Duration(seconds: 1));
@@ -35,7 +35,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
         try{
           Category selectedCategory = state.categories[event.oldIndex];
-
+          //creates a new list at a new index
           List<Category> sortedCategories = List.from(state.categories)
             ..remove(selectedCategory)
             ..insert(newIndex, selectedCategory);

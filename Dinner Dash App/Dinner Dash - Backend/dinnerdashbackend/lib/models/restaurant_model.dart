@@ -73,8 +73,8 @@ class Restaurant extends Equatable{
         return product.toDocument();
       }).toList(),
       'openingHours': openingHours!.map(
-        (openingHours){
-        return openingHours.toDocument();
+        (openingHour){
+        return openingHour.toDocument();
       }).toList(),
     };
   }
@@ -85,18 +85,16 @@ class Restaurant extends Equatable{
       name: snap['name'],
       imageUrl: snap['imageUrl'],
       description: snap['description'],
-      tags: (snap['tags'] as List).map((tag){
+      tags: (snap['tags'] as List).map((tag){//cast tags as a list and map it then return as a string
         return tag.toString();
       }).toList(),
       categories: (snap['categories'] as List).map((category){
         return Category.fromSnapshot(category);
       }).toList(),
-      /*products: (snap['products'] as List).map(
+      products: (snap['products'] as List).map(
         (product) {
           return Product.fromSnapshot(product);
-      }).toList(), getting error on this*/
-      products: List<Map<String, dynamic>>.from(snap['products'] ?? [])
-        .map(Product.fromJson).toList(),
+      }).toList(),
       openingHours: (snap['openingHours'] as List).map((openingHour){
         return OpeningHours.fromSnapshot(openingHour);//check this is openhours or hour
       }).toList(),
@@ -107,6 +105,16 @@ class Restaurant extends Equatable{
   static List<Restaurant> restaurants = [
     Restaurant(
       id: '1',
+      name: 'Dominos',
+      imageUrl: 'assets/dominos.png',
+      description: 'Doinos Pizza',
+      tags: const ['Chicken', 'Pizza' 'Desserts', 'Drinks', 'fast food'],
+      categories: Category.categories,
+      products: Product.products,
+      openingHours: OpeningHours.openingHoursList,
+    ),
+    Restaurant(
+      id: '2',
       name: 'Supermacs',
       imageUrl: 'assets/supermacs.png',
       description: 'Tasty and Tempting Food',
@@ -115,6 +123,7 @@ class Restaurant extends Equatable{
       products: Product.products,
       openingHours: OpeningHours.openingHoursList,
     ),
+
     
   ];
 }

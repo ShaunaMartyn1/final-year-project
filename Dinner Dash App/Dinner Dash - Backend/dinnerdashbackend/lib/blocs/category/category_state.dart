@@ -1,6 +1,6 @@
 part of 'category_bloc.dart';
 
-sealed class CategoryState extends Equatable {
+abstract class CategoryState extends Equatable {
   const CategoryState();
   
   @override

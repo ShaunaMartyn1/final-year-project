@@ -10,7 +10,6 @@ class Product extends Equatable {
   final String imageUrl;
   final double price;
   
-  
   const Product({
     this.id,
     this.restaurantId,
@@ -54,7 +53,7 @@ class Product extends Equatable {
     };
   }
 
-  factory Product.fromJson(Map<String, dynamic> snap) {
+  factory Product.fromSnapshot(Map<String, dynamic> snap) {
     return Product(
       id: snap['id'].toString(),
       restaurantId: snap['restaurantId'],
@@ -76,7 +75,7 @@ class Product extends Equatable {
       name: 'Spaghetti Bolognese',
       category: 'Italian',
       description: 'Spaghetti with a rich tomato and meat sauce',
-      imageUrl: 'assets/spaghettibolognese.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1622973536968-3ead9e780960?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U3BhZ2hldHRpJTIwQm9sb2duZXNlfGVufDB8fDB8fHww',
       price: 12.99,
     ),
     Product(
@@ -85,7 +84,7 @@ class Product extends Equatable {
       name: 'Margherita Pizza',
       category: 'Pizza',
       description: 'Tomato, mozzarella, and basil',
-      imageUrl: 'assets/MargheritaPizza.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8TWFyZ2hlcml0YSUyMFBpenphfGVufDB8fDB8fHww',
       price: 9.99,
     ),
     Product(
@@ -94,7 +93,7 @@ class Product extends Equatable {
       name: 'Tiramisu',
       category: 'Dessert',
       description: 'Coffee-flavoured Italian dessert',
-      imageUrl: 'assets/tiramisu.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1568627175730-73d05bd69ca9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dGlyYW1pc3V8ZW58MHx8MHx8fDA%3D',
       price: 6.99,
     ),
     Product(
@@ -103,7 +102,8 @@ class Product extends Equatable {
       name: 'Bruschetta',
       category: 'Pizza',
       description: 'Grilled bread rubbed with garlic and topped with tomatoes, olive oil, salt, and pepper',
-      imageUrl: 'assets/bruschetta.jpg',
+      //imageUrl: 'assets/bruschetta.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       price: 5.99,
     ),
   ];

@@ -7,6 +7,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool hasTitle;
   final String initialValue;
   final Function(String)? onChanged;
+  final Function(bool)? onFocusChanged;
 
   const CustomTextFormField({
     Key? key,
@@ -15,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.hasTitle,
     required this.initialValue,
     required this.onChanged,
+    this.onFocusChanged,
   }) : super(key: key);
 
   @override
@@ -33,27 +35,30 @@ class CustomTextFormField extends StatelessWidget {
             )
             : const SizedBox(),
           Expanded(
-            child: TextFormField(
-              maxLines: maxLines,
-              initialValue: initialValue,
-              onChanged: onChanged,
-              onEditingComplete: () {
-                print('Editing Complete/Done');
-              },
-              decoration: InputDecoration(
-                isDense: true,
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
+            child: Focus(
+              child: TextFormField(
+                maxLines: maxLines,
+                initialValue: initialValue,
+                onChanged: onChanged,
+                onEditingComplete: () {
+                  print('Editing Complete/Done');
+                },
+                decoration: InputDecoration(
+                  isDense: true,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.white,
+                      ),
+                  ),
                 ),
               ),
+              onFocusChange: onFocusChanged ?? (hasFocus) {},//only update the value of isUpdate boolean
             ),
           ),
         ],

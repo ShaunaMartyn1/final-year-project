@@ -1,6 +1,6 @@
 part of 'autocomplete_bloc.dart';
 
-sealed class AutocompleteState extends Equatable {
+abstract class AutocompleteState extends Equatable {
   const AutocompleteState();
   
   @override

@@ -3,9 +3,7 @@ import 'package:dinnerdashbackend/blocs/product/product_bloc.dart';
 import 'package:dinnerdashbackend/blocs/settings/settings_bloc.dart';
 import 'package:dinnerdashbackend/firebase_options.dart';
 import 'package:dinnerdashbackend/models/category_model.dart';
-import 'package:dinnerdashbackend/models/opening_hours_model.dart';
 import 'package:dinnerdashbackend/models/product_model.dart';
-import 'package:dinnerdashbackend/models/restaurant_model.dart';
 import 'package:dinnerdashbackend/repos/restaurant/restaurant_repo.dart';
 import 'package:dinnerdashbackend/screens/menu/menu_screen.dart';
 import 'package:dinnerdashbackend/screens/settings/settings_screen.dart';
@@ -20,7 +18,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -37,8 +35,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => ProductBloc(
-                categoryBloc: BlocProvider.of<CategoryBloc>(context))
-              ..add(
+                categoryBloc: BlocProvider.of<CategoryBloc>(context),
+                restaurantRepo: context.read<RestaurantRepo>(),
+              )..add(
                 LoadProducts(products: Product.products),
               ),
           ),
@@ -113,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

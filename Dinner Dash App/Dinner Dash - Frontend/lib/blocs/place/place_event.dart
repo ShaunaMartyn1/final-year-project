@@ -1,6 +1,6 @@
 part of 'place_bloc.dart';
 
-sealed class PlaceEvent extends Equatable {
+abstract class PlaceEvent extends Equatable {
   const PlaceEvent();
 
   @override

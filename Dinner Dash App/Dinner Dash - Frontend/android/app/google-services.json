@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "811246386671",
+    "project_id": "flutter-delivery-app-a5d3d",
+    "storage_bucket": "flutter-delivery-app-a5d3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811246386671:android:7c20f635c70fd9dd1a8a1a",
+        "android_client_info": {
+          "package_name": "com.example.dinnerdashbackend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkbc3CzUL6u0p5n5sBvak71AmtxGrh23Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811246386671:android:3199ff7a4cfe87bc1a8a1a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkbc3CzUL6u0p5n5sBvak71AmtxGrh23Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

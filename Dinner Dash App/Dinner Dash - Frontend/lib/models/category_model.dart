@@ -89,7 +89,7 @@ class Category extends Equatable {
   }
 
  
-  factory Category.fromSnapshot(Map<String, dynamic> snap) {
+  /*factory Category.fromSnapshot(Map<String, dynamic> snap) {
     return Category(
       id: snap['id'].toString(),
       name: snap['name'],
@@ -97,7 +97,19 @@ class Category extends Equatable {
       imageUrl: snap['imageUrl'],
       index: snap['index'],
     );
-  }
+  }*/
+
+  factory Category.fromSnapshot(Map<String, dynamic> snap) {
+  return Category(
+    id: snap['id']?.toString() ?? '',
+    name: snap['name'] ?? '',
+    description: snap['description'] ?? '',
+    imageUrl: snap['imageUrl'] ?? '',
+    index: snap['index'] is int ? snap['index'] : 0,  // Default to 0 if it's not an int
+  );
+}
+
+
 
   @override
   List<Object> get props => [id, name, description, imageUrl, index];

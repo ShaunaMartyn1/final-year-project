@@ -71,7 +71,7 @@ class RestaurantCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     SizedBox(height: 5),
-                    // Here we ensure to wrap the Row widget properly to display tags
+                    //wrap the Row widget properly to display tags
                     RestaurantTags(restaurant: restaurant),
                     SizedBox(height: 5),
                     Text(

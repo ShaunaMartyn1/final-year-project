@@ -97,7 +97,7 @@ class Category extends Equatable {
       imageUrl: snap['imageUrl'],
       index: snap['index'],
     );
-  }*/
+  } not displaying with this */
 
   factory Category.fromSnapshot(Map<String, dynamic> snap) {
   return Category(
@@ -142,6 +142,13 @@ class Category extends Equatable {
         description: 'Take a slice',
         imageUrl: 'assets/pizza.png',
         index: 3
+    ),
+    Category(
+        id: '5',
+        name: 'Burgers',
+        description: 'Take a bite',
+        imageUrl: 'assets/hamburger.png',
+        index: 4
     ),
   ];
 }

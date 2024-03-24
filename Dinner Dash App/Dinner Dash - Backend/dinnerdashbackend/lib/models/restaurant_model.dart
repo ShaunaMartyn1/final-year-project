@@ -107,7 +107,7 @@ class Restaurant extends Equatable{
       id: '1',
       name: 'Dominos',
       imageUrl: 'assets/dominos.png',
-      description: 'Doinos Pizza',
+      description: 'Dominos Pizza',
       tags: const ['Chicken', 'Pizza' 'Desserts', 'Drinks', 'fast food'],
       categories: Category.categories,
       products: Product.products,

@@ -199,10 +199,7 @@ factory Restaurant.fromSnapshot(DocumentSnapshot snap) {
   static List<Restaurant> restaurants = [];
 }
 */
-import 'package:equatable/equatable.dart';
-import 'package:flutter_app/models/category_model.dart';
-import 'package:flutter_app/models/opening_hours_model.dart';
-import 'package:flutter_app/models/product_model.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Restaurant extends Equatable {
@@ -255,7 +252,7 @@ class Restaurant extends Equatable {
       deliveryFee: snap.get('deliveryFee') ?? 10.0,
       distance: snap.get('distance') ?? 15.0,
     );
-  }*///original 
+  }//original 
   factory Restaurant.fromSnapshot(DocumentSnapshot snap) {
   var snapData = snap.data() as Map<String, dynamic>;
   
@@ -281,6 +278,31 @@ class Restaurant extends Equatable {
     priceCategory: snapData.containsKey('priceCategory') ? snapData['priceCategory'] : '\$',
     deliveryFee: snapData.containsKey('deliveryFee') ? snapData['deliveryFee'] : 10.0,
     distance: snapData.containsKey('distance') ? snapData['distance'] : 15.0,
+  );
+}
+*/
+factory Restaurant.fromSnapshot(DocumentSnapshot snap) {
+  var snapData = snap.data() as Map<String, dynamic>? ?? {};
+
+  return Restaurant(
+    id: snap.id,
+    name: snapData['name'] as String? ?? 'Unknown',
+    imageUrl: snapData['imageUrl'] as String? ?? 'assets/default.png', // Default image asset path
+    description: snapData['description'] as String? ?? 'No description available',
+    tags: List<String>.from(snapData['tags'] as List<dynamic>? ?? []),
+    categories: (snapData['categories'] as List<dynamic>? ?? [])
+        .map((data) => Category.fromSnapshot(data as Map<String, dynamic>))
+        .toList(),
+    products: (snapData['products'] as List<dynamic>? ?? [])
+        .map((data) => Product.fromJson(data as Map<String, dynamic>))
+        .toList(),
+    openingHours: (snapData['openingHours'] as List<dynamic>? ?? [])
+        .map((data) => OpeningHours.fromSnapshot(data as Map<String, dynamic>))
+        .toList(),
+    deliveryTime: snapData['deliveryTime'] as int? ?? 10,
+    priceCategory: snapData['priceCategory'] as String? ?? '\$',
+    deliveryFee: snapData['deliveryFee'] as double? ?? 10.0,
+    distance: snapData['distance'] as double? ?? 15.0,
   );
 }
 

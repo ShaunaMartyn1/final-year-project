@@ -15,4 +15,5 @@ abstract class AutocompleteEvent extends Equatable {
     @override
     List<Object> get props => [searchInput];
   }
+  class ClearAutocomplete extends AutocompleteEvent{}
 

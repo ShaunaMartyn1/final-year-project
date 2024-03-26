@@ -10,7 +10,7 @@ class RestaurantDetailsScreen extends StatelessWidget {
   static Route route({required Restaurant restaurant}) {
     return MaterialPageRoute(
         builder: (_) => RestaurantDetailsScreen(restaurant: restaurant),
-        settings: RouteSettings(name: routeName));
+        settings: const RouteSettings(name: routeName));
   }
 
   final Restaurant restaurant;

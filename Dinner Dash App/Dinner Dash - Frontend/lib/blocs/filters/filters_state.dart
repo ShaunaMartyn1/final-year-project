@@ -1,22 +1,24 @@
 part of 'filters_bloc.dart';
 
-sealed class FiltersState extends Equatable {
+abstract class FiltersState extends Equatable {
   const FiltersState();
   
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class FiltersLoading extends FiltersState {}
+class FiltersLoading extends FiltersState {}
 
-final class FiltersLoaded extends FiltersState {
+class FiltersLoaded extends FiltersState {
   final Filter filter;
+  final List<Restaurant>? filteredRestaurants;
 
-  FiltersLoaded({
+  const FiltersLoaded({
     this.filter = const Filter(),
+    this.filteredRestaurants = const<Restaurant> [],
   });
 
   @override
-  List<Object> get props => [filter];
+  List<Object?> get props => [filter, filteredRestaurants];
 }
 

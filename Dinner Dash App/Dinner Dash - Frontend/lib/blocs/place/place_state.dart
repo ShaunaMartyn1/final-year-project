@@ -1,4 +1,4 @@
-part of 'place_bloc.dart';
+/*part of 'place_bloc.dart';
 
 abstract class PlaceState extends Equatable {
   const PlaceState();
@@ -20,4 +20,4 @@ final class PlaceLoaded extends PlaceState {
 }
 
 final class PlaceError extends PlaceState {}
-
+*/

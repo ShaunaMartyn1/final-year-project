@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app/blocs/location/location_bloc.dart';
 import 'package:flutter_app/blocs/restaurant/restaurant_bloc.dart';
 import 'package:flutter_app/models/category_model.dart';
 import 'package:flutter_app/models/restaurant_model.dart';
@@ -81,8 +84,7 @@ class HomeScreen extends StatelessWidget {
                         itemCount: state.restaurants.length,
                         itemBuilder: (context, index) {
                           return RestaurantCard(
-                              restaurant: state.restaurants[index]
-                          );
+                              restaurant: state.restaurants[index]);
                         }),
                   );
                 } else {
@@ -120,7 +122,8 @@ class RestaurantCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5.0),
                   image: DecorationImage(
                     //image: NetworkImage(restaurant.imageUrl),
-                    image: AssetImage('assets/dominos.png'), //this is working now 
+                    image:
+                        AssetImage('assets/dominos.png'), //this is working now
                     //image: AssetImage(restaurant.imageUrl),//not working
 
                     fit: BoxFit.cover,
@@ -182,7 +185,7 @@ class RestaurantCard extends StatelessWidget {
 }
 
 //class CustomAppBar extends StatelessWidget with PreferredSizeWidget { - Error on PreferredSizeWidget
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+/*class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     Key? key,
   }) : super(key: key);
@@ -195,22 +198,32 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {},
         ),
         centerTitle: false,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,  // Align items to the start and end of the row.
           children: [
-            Text(
-              'Current Location:',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(color: Colors.white),
-            ),
-            Text(
-              '123 Eyre Square, Galway',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: Colors.white),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Current Location:',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: Colors.white),
+                ),
+                Text(
+                  '123 Eyre Square, Galway',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: Colors.white),
+                ),
+                Image.asset('assets/dinner-dash-logo.png',  
+                  width: 24, // Set your desired width for the image
+                  height: 24, // Set your desired height for the image
+                  fit: BoxFit.contain
+                ), // Ensures the image maintains its aspect ratio
+              ],
             ),
           ],
         ));
@@ -219,4 +232,82 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize =>
       Size.fromHeight(56.0); // standard flutter size for appbar
+}
+*/
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(Icons.person),
+        onPressed: () {},
+      ),
+      centerTitle: false,
+      title: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: BlocBuilder<LocationBloc, LocationState>(
+              builder: (context, state) {
+                if (state is LocationLoading){
+                  return Center ( 
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is LocationLoaded){
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Current Location:',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: Colors.white),
+                    ),
+                    Text(
+                      state.place.name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(color: Colors.white),
+                    ),
+                  ],
+                );
+                } else {
+                  return Text('Something went wrong');
+                }
+              },
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Center(
+              // Center the image within the expanded widget
+              child: Image.asset(
+                'assets/dinner-dash-logo.png',
+                width: 150, // Set width for the image
+                height: 150, // Set height for the image
+                fit: BoxFit
+                    .contain, // Ensures the image maintains its aspect ratio
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child:
+                Container(), // This empty container is used to balance the space on the right
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(
+      kToolbarHeight); // Use kToolbarHeight for standard AppBar height
 }

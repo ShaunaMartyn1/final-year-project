@@ -30,45 +30,48 @@ class FilterScreen extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     );
                   }
-                  if (state is FiltersLoaded){
-                      return ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric( horizontal: 50),
-                          backgroundColor: Theme.of(context).colorScheme.secondary,
-                          shape: RoundedRectangleBorder(),
-                    ),
-                    child: Text('Apply'),
-                    onPressed: () {
-                      var categories = state.filter.categoryFilters
-                      .where((filter) => filter.value)
-                      .map((filter) => filter.category.name)
-                      .toList();
+                  if (state is FiltersLoaded) {
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        shape: RoundedRectangleBorder(),
+                      ),
+                      child: Text('Apply'),
+                      onPressed: () {
+                        /*var categories = state.filter.categoryFilters
+                            .where((filter) => filter.value)
+                            .map((filter) => filter.category.name)
+                            .toList();
 
-                      var prices = state.filter.priceFilters
-                      .where((filter) => filter.value)
-                      .map((filter) => filter.price.price)
-                      .toList();
+                        var prices = state.filter.priceFilters
+                            .where((filter) => filter.value)
+                            .map((filter) => filter.price.price)
+                            .toList();
 
-                      List<Restaurant> restaurants = Restaurant.restaurants
-                      .where(
-                        (restaurant) => categories.any(
-                          (category) => restaurant.tags.contains(category),
-                        ),
-                      )
-                      .where(
-                        (restaurant) => prices.any(
-                          (price) => restaurant.priceCategory.contains(price),
-                        ),
-                      )
-                      .toList();
+                        List<Restaurant> restaurants = Restaurant.restaurants
+                            .where(
+                              (restaurant) => categories.any(
+                                (category) =>
+                                    restaurant.tags.contains(category),
+                              ),
+                            )
+                            .where(
+                              (restaurant) => prices.any(
+                                (price) =>
+                                    restaurant.priceCategory.contains(price),
+                              ),
+                            )
+                            .toList();*/
 
-                      Navigator.pushNamed(context, '/restaurant-listing',
-                      arguments: restaurants
-                      );
-                    },
-                  );
+                        Navigator.pushNamed(context, '/restaurant-listing',
+                            arguments: state.filteredRestaurants);
+                      },
+                    );
+                  } else {
+                    return Text('Error');
                   }
-                  else {return Text('Error');}
                 },
               ),
             ],
@@ -78,7 +81,7 @@ class FilterScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, //alignns to left
+          crossAxisAlignment: CrossAxisAlignment.start, // alignns to left
           children: [
             Text(
               'Price',

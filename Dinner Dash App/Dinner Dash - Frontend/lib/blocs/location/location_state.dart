@@ -12,16 +12,23 @@ final class LocationLoading extends LocationState {}
 final class LocationLoaded extends LocationState {
   final GoogleMapController? controller;
   final Place place;
-  //final double lat;
-  //final double lng;
+  final List<Restaurant>? restaurants;
 
   LocationLoaded({
     this.controller,
+    this.restaurants,
     required this.place,
-    //required this.lat,
-    //required this.lng
   });
 
   @override
-  List<Object?> get props => [controller, place];
+  List<Object?> get props => [controller,restaurants, place];
+}
+
+class LocationError extends LocationState {
+  final String message;
+
+  LocationError(this.message);
+
+  @override
+  List<Object> get props => [message];
 }

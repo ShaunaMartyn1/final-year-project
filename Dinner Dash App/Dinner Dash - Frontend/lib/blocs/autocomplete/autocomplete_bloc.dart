@@ -70,8 +70,9 @@ class AutocompleteBloc extends Bloc<AutocompleteEvent, AutocompleteState> {
       // Handle the error state or log the error
       onError(error, stackTrace);
     }
-  }*///put this back in a min - search box not showing eith this 
+  }//put this back in a min - search box not showing eith this 
 
+  ///this is kind of working - displays the search bar
   void _onLoadAutocomplete(
     LoadAutocomplete event,
     Emitter<AutocompleteState> emit,
@@ -79,7 +80,25 @@ class AutocompleteBloc extends Bloc<AutocompleteEvent, AutocompleteState> {
   await Future.delayed(Duration(seconds: 1));  // Simulate some delay
   final List<PlaceAutocomplete> autocomplete = [];  // Use mock data
   emit(AutocompleteLoaded(autocomplete: autocomplete));
+}*/
+
+void _onLoadAutocomplete(
+  LoadAutocomplete event,
+  Emitter<AutocompleteState> emit,
+) async {
+  try {
+    final List<PlaceAutocomplete> autocomplete =
+        await _placesRepository.getAutocomplete(event.searchInput);
+
+    emit(AutocompleteLoaded(autocomplete: autocomplete));
+  } catch (error) {
+    // Optionally, emit an error state if there's an exception
+    emit(
+      AutocompleteError("Failed to load autocomplete suggestions"));
+  }
 }
+
+
 
 
   void _onClearAutocomplete(

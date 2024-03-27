@@ -5,6 +5,7 @@ import 'package:flutter_app/blocs/autocomplete/autocomplete_bloc.dart';
 import 'package:flutter_app/blocs/geolocation/geolocation_bloc.dart';
 import 'package:flutter_app/blocs/location/location_bloc.dart';
 import 'package:flutter_app/blocs/place/place_bloc.dart';
+import 'package:flutter_app/screens/restaurant_details/restaurant_details_screen.dart';
 import 'package:flutter_app/widgets/location_search_box.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -29,11 +30,32 @@ class LocationScreen extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
           if (state is LocationLoaded) {
+            Set<Marker> markers = state.restaurants!.map(
+              (restaurant){
+              return Marker(
+                markerId: MarkerId(restaurant.id),
+                infoWindow: InfoWindow(
+                  title: restaurant.name,
+                  snippet: restaurant.description,
+                  onTap:(){
+                    Navigator.pushNamed(
+                      context,
+                      RestaurantDetailsScreen.routeName,
+                      arguments: restaurant,
+                    );
+                  }),
+                position: LatLng(
+                  restaurant.address.lat,
+                  restaurant.address.lon
+                  ),
+              );
+            }).toSet();
             return Stack(
               children: [
                 GoogleMap(
                   myLocationEnabled: true,
                   buildingsEnabled: false,
+                  markers: markers,
                   onMapCreated: (GoogleMapController controller) {
                     context
                         .read<LocationBloc>()

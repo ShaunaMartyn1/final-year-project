@@ -18,5 +18,13 @@ final class AutocompleteLoaded extends AutocompleteState {
   List<Object> get props => [autocomplete];
 }
 
-final class AutocompleteError extends AutocompleteState {}
+final class AutocompleteError extends AutocompleteState {
+
+  final String message;
+
+  const AutocompleteError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
 

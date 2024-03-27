@@ -54,8 +54,7 @@ class MyApp extends StatelessWidget {
         //Connect blocs to the UI
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => RestaurantBloc(restaurantRepository: context.read<RestaurantRepository>(),
-            ),),
+            
             /*BlocProvider(
                 create: (context) => GeolocationBloc(
                     geolocationRepository:
@@ -65,7 +64,8 @@ class MyApp extends StatelessWidget {
                 create: (context) => LocationBloc(
                     placesRepository: context.read<PlacesRepository>(),
                         geolocationRepository: context.read<GeolocationRepository>(),
-                        localStorageRepository: context.read<LocalStorageRepository>()
+                        localStorageRepository: context.read<LocalStorageRepository>(),
+                        restaurantRepository: context.read<RestaurantRepository>()
                 )..add(LoadMap()),
             ),
             BlocProvider(
@@ -80,7 +80,6 @@ class MyApp extends StatelessWidget {
                 restaurantBloc: context.read<RestaurantBloc>(),
               )
                 ..add(
-                  //FilterLoad(),
                   LoadFilter(),
                 ),
             ),
@@ -91,6 +90,10 @@ class MyApp extends StatelessWidget {
                 ),
                 
             ),
+            BlocProvider(create: (context) => RestaurantBloc(
+              restaurantRepository: context.read<RestaurantRepository>(),
+              locationBloc: context.read<LocationBloc>(),
+            ),),
           ],
           //Handles navigation
           child: MaterialApp(
